@@ -10,9 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-/**
- * Created by michal on 07.06.17.
- */
 public class TestCustomer {
 	private Customer customer;
 	private LocalDate createDate;

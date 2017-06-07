@@ -9,9 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-/**
- * Created by michal on 07.06.17.
- */
 public class TestCard {
 	private SavingAccount savingAccount;
 	private Card card;
