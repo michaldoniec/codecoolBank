@@ -10,13 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-/**
- * Created by michal on 07.06.17.
- */
 public class TestSavingAccount {
 	private SavingAccount savingAccount;
-	private AccountStatus accountStatus;
-	private AccountType accountType;
 	private Customer customer;
 	private LocalDate openDate;
 
@@ -26,9 +21,8 @@ public class TestSavingAccount {
 		LocalDate lastLogin = LocalDate.of(2017,2,2);
 		openDate = LocalDate.of(2017,3,3);
 		customer = mock(Customer.class);
-		accountType = new AccountType(1, "Saving", "Saving abstractAccount description");
-		accountStatus = new AccountStatus(1, "Activated", "Status description");
-		savingAccount = new SavingAccount(customer, "123345556NBP", accountType, accountStatus, openDate, 34000,
+		savingAccount = new SavingAccount(customer, "123345556NBP", "type description",
+			"status name", "status description", openDate, 34000,
 		3000, 5);
 	}
 
@@ -37,11 +31,12 @@ public class TestSavingAccount {
 		long debitLimit = 3000;
 		long balance = 34000;
 		Integer interest = 5;
-		assertAll("AbstractAccount constructor",
+		assertAll("SavingAccount constructor",
 		 () -> assertEquals(customer, savingAccount.getCustomer()),
 		 () -> assertEquals(openDate, savingAccount.getOpenDate()),
-		 () -> assertEquals(accountType, savingAccount.getAccountType()),
-		 () -> assertEquals(accountStatus, savingAccount.getAccountStatus()),
+		 () -> assertEquals("type description", savingAccount.getTypeDescription()),
+		 () -> assertEquals("status name", savingAccount.getStatusName()),
+		 () -> assertEquals("status description", savingAccount.getStatusDescription()),
 		 () -> assertEquals(debitLimit, savingAccount.getDebitLine()),
 		 () -> assertEquals(interest, savingAccount.getInterest()),
 		 () -> assertEquals("123345556NBP", savingAccount.getNumber()),
@@ -51,9 +46,9 @@ public class TestSavingAccount {
 
 	@Test
 	public void testIfAccountConstructorWithIdCreateCorrectAccount() {
-		savingAccount = new SavingAccount(1, customer, "123345556NBP",
-		 accountType, accountStatus, openDate, 34000,
-		 3000, 5);
+		savingAccount = new SavingAccount(1, customer, "123345556NBP", "type description",
+			"status name", "status description", openDate, 34000,
+			3000, 5);
 		Integer accountId = 1;
 		assertAll("AbstractAccount constructor",
 		 () -> assertEquals(accountId, savingAccount.getAccountId()),
@@ -65,11 +60,11 @@ public class TestSavingAccount {
 
 	@Test
 	public void testIfSetterChangeAccountStatus() {
-		accountStatus = new AccountStatus(1, "Disactivated", "Disactivated description");
-		savingAccount.setAccountStatus(accountStatus);
-		assertAll("AbstractAccount Status",
-		 () -> assertEquals("Disactivated", savingAccount.getAccountStatus().getName()),
-		 () -> assertEquals("Disactivated description", savingAccount.getAccountStatus().getDescription())
+		savingAccount.setStatusName("Disactivated");
+		savingAccount.setStatusDescription("Disactivated description");
+		assertAll("SavingAccount Status",
+		 () -> assertEquals("Disactivated", savingAccount.getStatusName()),
+		 () -> assertEquals("Disactivated description", savingAccount.getStatusDescription())
 		);
 	}
 
