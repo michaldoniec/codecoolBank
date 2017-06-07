@@ -71,6 +71,14 @@ public class Customer {
 		isActive = active;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
 	public Boolean validateCustomer(String login, String password){
 		if(validateLogin(login) && validatePassword(password)){
 			return true;
