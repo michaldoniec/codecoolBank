@@ -24,6 +24,7 @@ public class TestSavingAccount {
 		savingAccount = new SavingAccount(customer, "123345556NBP", "type description",
 			"status name", "status description", openDate, 34000,
 		3000, 5);
+
 	}
 
 	@Test
