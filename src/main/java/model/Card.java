@@ -2,9 +2,6 @@ package model;
 
 import java.time.LocalDate;
 
-/**
- * Created by michal on 07.06.17.
- */
 public class Card {
 	private Integer id;
 	private String number;

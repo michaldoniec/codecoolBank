@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by michal on 07.06.17.
- */
 public class Customer {
 	private Integer id;
 	private String firstName;
@@ -102,12 +99,11 @@ public class Customer {
 
 	public Account getAccountById(Integer accountId) {
 		Account foundAccount = null;
-		for(Account account : accounts) {
-			if(account.getAccountId() == accountId){
+		for(Account account : accounts)
+			if (account.getAccountId() == accountId) {
 				foundAccount = account;
 				return foundAccount;
 			}
-		}
 		return foundAccount;
 	}
 

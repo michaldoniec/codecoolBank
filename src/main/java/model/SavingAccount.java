@@ -2,9 +2,6 @@ package model;
 
 import java.time.LocalDate;
 
-/**
- * Created by michal on 07.06.17.
- */
 public class SavingAccount extends AbstractAccount {
 	private Integer id;
 	private Customer customer;
