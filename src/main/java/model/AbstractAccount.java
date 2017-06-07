@@ -61,13 +61,8 @@ public abstract class AbstractAccount implements Account {
 		return id;
 	}
 
-	public String getAccountStatus() {
-		return statusName;
-	}
-
-	public void setAccountStatus(String statusName, String statusDescription) {
+	public void setStatusName(String statusName) {
 		this.statusName = statusName;
-		this.statusDescription = statusDescription;
 	}
 
 	public void withdraw(long amount) throws IllegalArgumentException {
@@ -96,11 +91,19 @@ public abstract class AbstractAccount implements Account {
 		return statusDescription;
 	}
 
+	public String getStatusName() {
+		return statusName;
+	}
+
 	public long getDebitLine() {
 		return debitLine;
 	}
 
 	public Integer getInterest() {
 		return interest;
+	}
+
+	public void setStatusDescription(String statusDescription) {
+		this.statusDescription = statusDescription;
 	}
 }
