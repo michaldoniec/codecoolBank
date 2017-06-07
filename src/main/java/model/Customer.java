@@ -1,6 +1,8 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by michal on 07.06.17.
@@ -14,6 +16,7 @@ public class Customer {
 	private LocalDate createDate;
 	private Boolean isActive;
 	private LocalDate lastLogin;
+	private List<Account> accounts = new ArrayList<>();
 
 	public Customer(Integer id, String firstName, String lastName, String login, String password, LocalDate createDate, Boolean isActive, LocalDate lastLogin) {
 		this.id = id;
@@ -74,6 +77,34 @@ public class Customer {
 		} else {
 			return false;
 		}
+	}
+
+	public void addAccount(Account account) {
+		accounts.add(account);
+	}
+
+	public void removeAccount(Account account) throws NoSuchAccountException {
+		Integer accountToRemoveId = account.getAccountId();
+		Account accountToRemove = getAccountById(accountToRemoveId);
+		if(accountToRemove == null){
+			throw new NoSuchAccountException("There is no such account");
+		}
+		accounts.remove(getAccountById(accountToRemoveId));
+	}
+
+	public Account getAccountById(Integer accountId) {
+		Account foundAccount = null;
+		for(Account account : accounts) {
+			if(account.getAccountId() == accountId){
+				foundAccount = account;
+				return foundAccount;
+			}
+		}
+		return foundAccount;
+	}
+
+	public List<Account> getAccounts() {
+		return accounts;
 	}
 
 	private Boolean validateLogin(String loginToValidate){
