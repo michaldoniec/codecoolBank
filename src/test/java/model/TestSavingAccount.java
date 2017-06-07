@@ -15,8 +15,6 @@ import static org.mockito.Mockito.mock;
  */
 public class TestSavingAccount {
 	private SavingAccount savingAccount;
-	private AccountStatus accountStatus;
-	private AccountType accountType;
 	private Customer customer;
 	private LocalDate openDate;
 
@@ -26,10 +24,9 @@ public class TestSavingAccount {
 		LocalDate lastLogin = LocalDate.of(2017,2,2);
 		openDate = LocalDate.of(2017,3,3);
 		customer = mock(Customer.class);
-		accountType = new AccountType(1, "Saving", "Saving abstractAccount description");
-		accountStatus = new AccountStatus(1, "Activated", "Status description");
-		savingAccount = new SavingAccount(customer, "123345556NBP", accountType, accountStatus, openDate, 34000,
-		3000, 5);
+		savingAccount = new SavingAccount(customer, "123345556NBP","Saving account",
+		 "Activated", "Activated account", openDate, 34000,
+		 3000, 5);
 	}
 
 	@Test
@@ -40,8 +37,8 @@ public class TestSavingAccount {
 		assertAll("AbstractAccount constructor",
 		 () -> assertEquals(customer, savingAccount.getCustomer()),
 		 () -> assertEquals(openDate, savingAccount.getOpenDate()),
-		 () -> assertEquals(accountType, savingAccount.getAccountType()),
-		 () -> assertEquals(accountStatus, savingAccount.getAccountStatus()),
+		 () -> assertEquals("Saving account", savingAccount.getTypeDescription()),
+		 () -> assertEquals("Activated", savingAccount.getAccountStatus()),
 		 () -> assertEquals(debitLimit, savingAccount.getDebitLine()),
 		 () -> assertEquals(interest, savingAccount.getInterest()),
 		 () -> assertEquals("123345556NBP", savingAccount.getNumber()),
@@ -51,8 +48,8 @@ public class TestSavingAccount {
 
 	@Test
 	public void testIfAccountConstructorWithIdCreateCorrectAccount() {
-		savingAccount = new SavingAccount(1, customer, "123345556NBP",
-		 accountType, accountStatus, openDate, 34000,
+		savingAccount = new SavingAccount(1, customer, "123345556NBP","Saving account",
+		 "Activated", "Activaetd account", openDate, 34000,
 		 3000, 5);
 		Integer accountId = 1;
 		assertAll("AbstractAccount constructor",
@@ -65,11 +62,11 @@ public class TestSavingAccount {
 
 	@Test
 	public void testIfSetterChangeAccountStatus() {
-		accountStatus = new AccountStatus(1, "Disactivated", "Disactivated description");
-		savingAccount.setAccountStatus(accountStatus);
+
+		savingAccount.setAccountStatus("Disactivated", "Disactivated description");
 		assertAll("AbstractAccount Status",
-		 () -> assertEquals("Disactivated", savingAccount.getAccountStatus().getName()),
-		 () -> assertEquals("Disactivated description", savingAccount.getAccountStatus().getDescription())
+		 () -> assertEquals("Disactivated", savingAccount.getAccountStatus()),
+		 () -> assertEquals("Disactivated description", savingAccount.getStatusDescription())
 		);
 	}
 
