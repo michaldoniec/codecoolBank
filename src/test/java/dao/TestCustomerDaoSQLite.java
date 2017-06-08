@@ -21,7 +21,8 @@ public class TestCustomerDaoSQLite {
 
 	@BeforeEach
 	public void setUp() throws SQLException, ClassNotFoundException, FileNotFoundException {
-		database = new JDBCSQLite("src/test/resources/testBank.db");
+		JDBCSQLite.createDatabase("src/test/resources/testBank.db");
+		database = JDBCSQLite.getDatabase();
 		database.resetDatabase();
 		customerDao = new CustomerDaoSQLite(database);
 	}

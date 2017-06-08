@@ -7,10 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 
-public class CustomerDaoSQLite implements CustomerDao {
+public class CustomerDaoSQLite extends CommonDBOperationsDaoSQLite implements CustomerDao {
 	private JDBCSQLite database;
 	private Connection connection;
 	private ResultSet resultSet;
@@ -71,22 +70,22 @@ public class CustomerDaoSQLite implements CustomerDao {
 		}
 	}
 
-	private Customer convertDataToCustomerModel(ResultSet resultSet) throws SQLException {
-		Boolean isActive;
-		LocalDate createDate = LocalDate.parse(resultSet.getString("CreateDate"));
-		LocalDate lastLogin = LocalDate.parse(resultSet.getString("LastLogin"));
-
-		if(resultSet.getInt("IsActive") == 1) {
-			isActive = true;
-		} else {
-			isActive = false;
-		}
-
-		return new Customer(resultSet.getInt("CustomerID"), resultSet.getString("FirstName"),
-		 resultSet.getString("LastName"), resultSet.getString("Login"),
-		 resultSet.getString("Password"), createDate, isActive,
-		 lastLogin);
-	}
+//	private Customer convertDataToCustomerModel(ResultSet resultSet) throws SQLException {
+//		Boolean isActive;
+//		LocalDate createDate = LocalDate.parse(resultSet.getString("CreateDate"));
+//		LocalDate lastLogin = LocalDate.parse(resultSet.getString("LastLogin"));
+//
+//		if(resultSet.getInt("IsActive") == 1) {
+//			isActive = true;
+//		} else {
+//			isActive = false;
+//		}
+//
+//		return new Customer(resultSet.getInt("CustomerID"), resultSet.getString("FirstName"),
+//		 resultSet.getString("LastName"), resultSet.getString("Login"),
+//		 resultSet.getString("Password"), createDate, isActive,
+//		 lastLogin);
+//	}
 
 	private void modifyDatabase(String query) throws SQLException {
 		PreparedStatement modifyDatabaseQuery = connection.prepareStatement(query);
