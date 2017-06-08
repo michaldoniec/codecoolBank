@@ -1,5 +1,10 @@
 package controller;
 
+import dao.CustomerDao;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import model.Customer;
 import model.NoSuchAccountException;
 import model.SavingAccount;
@@ -7,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
@@ -22,7 +29,7 @@ public class TestCustomerController {
     public void createCustomerController(){
         createDate = LocalDate.of(2017,1,1);
         lastLogin = LocalDate.of(2017, 2,2);
-        customer = new Customer("Michal", "Abc", "abcd",
+        customer = new Customer("Jan", "Kowalski", "abcd",
             "21232f297a57a5a743894a0e4a801fc3",createDate, true, lastLogin);
         customerController = new CustomerController(customer);
         savingAccount = new SavingAccount(1, customer, "123345556NBP", "type description",
@@ -79,6 +86,29 @@ public class TestCustomerController {
         customerController.addAccount(savingAccount);
         customerController.deactivateCustomer(customer);
         assertEquals("Disabled account", customerController.getAccountById(1).getStatusName());
+    }
+
+    @Test
+    public void testIfAddNewCustomer() {
+        List<String> data = new ArrayList<>(
+            Arrays.asList("Jan", "Kowalski", "abcd", "123", "2017-01-01", "2017-01-01", "2017-01-01"));
+        customerController.addCustomer(data);
+        assertAll("New Customer",
+            () -> assertEquals(null, customer.getId()),
+            () -> assertEquals("Jan", customer.getFirstName()),
+            () -> assertEquals("Kowalski", customer.getLastName())
+        );
+    }
+
+    @Test
+    public void testIfDisplayAllCustomerAccounts() {
+        SavingAccount firstAccount = mock(SavingAccount.class);
+        SavingAccount secondAccount = mock(SavingAccount.class);
+        SavingAccount thirdAccount = mock(SavingAccount.class);
+        customerController.addAccount(firstAccount);
+        customerController.addAccount(secondAccount);
+        customerController.addAccount(thirdAccount);
+        assertEquals(3, customerController.getAccountsByCustomer(customer).size());
     }
 
 }
