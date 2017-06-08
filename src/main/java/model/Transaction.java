@@ -84,11 +84,19 @@ public class Transaction {
         return sourceAccount;
     }
 
+    public void setSourceAccount(AbstractAccount sourceAccount) {
+        this.sourceAccount = sourceAccount;
+    }
+
     public Card getSourceCard() {
         return sourceCard;
     }
 
     public AbstractAccount getDestinationAccount() {
         return destinationAccount;
+    }
+
+    public void setDestinationAccount(AbstractAccount destinationAccount) {
+        this.destinationAccount = destinationAccount;
     }
 }

@@ -12,7 +12,7 @@ public class AccountController implements AccountOperation {
         return account;
     }
 
-    public void withdraw(long amount) throws IllegalArgumentException {
+    public void withdraw(long amount, AbstractAccount account) throws IllegalArgumentException {
         long balance = account.getBalance();
 
         if(validateAccountStatus() && validateAmount(amount) && validateFunds(amount)) {
@@ -51,7 +51,7 @@ public class AccountController implements AccountOperation {
     }
 
 
-    public void deposit(long amount) throws IllegalArgumentException {
+    public void deposit(long amount, AbstractAccount account) throws IllegalArgumentException {
         long balance = account.getBalance();
 
         if (validateAccountStatus() && validateAmount(amount)) {
