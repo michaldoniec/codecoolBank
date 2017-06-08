@@ -1,5 +1,7 @@
 package controller;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import model.AbstractAccount;
 import model.Customer;
@@ -11,10 +13,8 @@ public class CustomerController {
         this.customer = customer;
     }
 
-    public CustomerController() {
-    }
 
-    public void addCustomer(List<String> newCustomerData) {
+    public Customer addCustomer(List<String> newCustomerData) {
         String firstName = newCustomerData.get(0);
         String secondName = newCustomerData.get(1);
         String login = newCustomerData.get(2);
@@ -24,7 +24,7 @@ public class CustomerController {
         LocalDate lastLogin = LocalDate.parse(newCustomerData.get(5));
 
         Customer newCustomer = new Customer(firstName, secondName, login, password, localDate, isActive, lastLogin);
-        customerDao.addCustomer(newCustomer);
+        return newCustomer;
     }
 
 
@@ -49,6 +49,10 @@ public class CustomerController {
                 return foundAccount;
             }
         return foundAccount;
+    }
+
+    public List<AbstractAccount> getAccountsByCustomer(Customer customer) {
+        return customer.getAccounts();
     }
 
     public void deactivateCustomer(Customer customer) {

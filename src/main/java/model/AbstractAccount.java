@@ -45,7 +45,6 @@ public abstract class AbstractAccount  {
 		this.interest = interest;
 	}
 
-
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -66,10 +65,13 @@ public abstract class AbstractAccount  {
 		return id;
 	}
 
+	public String getStatusName() {
+		return statusName;
+	}
+
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
-
 	
 	public String getNumber() {
 		return number;
@@ -83,8 +85,8 @@ public abstract class AbstractAccount  {
 		return statusDescription;
 	}
 
-	public String getStatusName() {
-		return statusName;
+	public void setStatusDescription(String statusDescription) {
+		this.statusDescription = statusDescription;
 	}
 
 	public long getDebitLine() {
@@ -95,7 +97,5 @@ public abstract class AbstractAccount  {
 		return interest;
 	}
 
-	public void setStatusDescription(String statusDescription) {
-		this.statusDescription = statusDescription;
-	}
+
 }

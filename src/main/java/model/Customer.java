@@ -15,7 +15,8 @@ public class Customer {
 	private LocalDate lastLogin;
 	private List<AbstractAccount> accounts = new ArrayList<>();
 
-	public Customer(Integer id, String firstName, String lastName, String login, String password, LocalDate createDate, Boolean isActive, LocalDate lastLogin) {
+	public Customer(Integer id, String firstName, String lastName, String login, String password,
+		LocalDate createDate, Boolean isActive, LocalDate lastLogin) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -26,7 +27,8 @@ public class Customer {
 		this.lastLogin = lastLogin;
 	}
 
-	public Customer(String firstName, String lastName, String login, String password, LocalDate createDate, Boolean isActive, LocalDate lastLogin) {
+	public Customer(String firstName, String lastName, String login, String password, LocalDate createDate,
+		Boolean isActive, LocalDate lastLogin) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.login = login;
@@ -79,5 +81,4 @@ public class Customer {
 	public List<AbstractAccount> getAccounts() {
 		return accounts;
 	}
-
 }
