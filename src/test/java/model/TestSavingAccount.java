@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
 public class TestSavingAccount {
@@ -69,28 +68,4 @@ public class TestSavingAccount {
 		);
 	}
 
-	@Test
-	public void testIfDespositIncreaseValue() {
-		savingAccount.deposit(1000);
-		long correctBalance = 35000;
-		assertEquals(correctBalance, savingAccount.getBalance());
-	}
-
-	@Test
-	public void testIfMinusDepositAmountThrowException() {
-		assertThrows(IllegalArgumentException.class, () -> savingAccount.deposit(-1000));
-	}
-
-
-	@Test
-	public void testIfWithdrawDecreaseValue() {
-		savingAccount.withdraw(4000);
-		long correctBalance = 30000;
-		assertEquals(correctBalance, savingAccount.getBalance());
-	}
-
-	@Test
-	public void testIfMinusWithdrawAmountThrowException() {
-		assertThrows(IllegalArgumentException.class, () -> savingAccount.withdraw(-1000));
-	}
 }

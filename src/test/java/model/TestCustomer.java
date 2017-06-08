@@ -1,5 +1,6 @@
 package model;
 
+//import controller.SavingAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,51 +60,5 @@ public class TestCustomer {
 		customer.setLastLogin(lastLogin);
 		assertEquals(lastLogin, customer.getLastLogin());
 	}
-
-	@Test
-	public void testIfValidateCustomerWithCorrectPasswordAndLogin() {
-		assertEquals(true, customer.validateCustomer("abcd", "21232f297a57a5a743894a0e4a801fc3"));
-	}
-
-	@Test
-	public void testIfValidateCustomerWithCorrectLoginIncorrectPassword() {
-		assertEquals(false, customer.validateCustomer("abcd", "21232f297a57a5a743894a0e4a801fc3d"));
-	}
-
-	@Test
-	public void testIfValidateCustomerWithInCorrectLoginCorrectPassword() {
-		assertEquals(false, customer.validateCustomer("abc", "21232f297a57a5a743894a0e4a801fc3"));
-	}
-
-	@Test
-	public void testAddAccount() {
-		Account firstAccount = mock(SavingAccount.class);
-		Account secondAccount = mock(SavingAccount.class);
-		customer.addAccount(firstAccount);
-		customer.addAccount(secondAccount);
-		Integer numberOfAccounts = 2;
-		Integer accountListSize = customer.getAccounts().size();
-		assertEquals(numberOfAccounts, accountListSize);
-	}
-
-	@Test
-	public void testRemoveAccount() throws NoSuchAccountException {
-		Account firstAccount = mock(SavingAccount.class);
-		Account secondAccount = mock(SavingAccount.class);
-		customer.addAccount(firstAccount);
-		customer.addAccount(secondAccount);
-		customer.removeAccount(firstAccount);
-		Integer numberOfAccounts = 1;
-		Integer accountListSize = customer.getAccounts().size();
-		assertEquals(numberOfAccounts, accountListSize);
-	}
-
-	@Test
-	public void testRemoveNonExistingAccountThrowsException() {
-		Account firstAccount = mock(SavingAccount.class);
-		Account secondAccount = mock(SavingAccount.class);
-		assertThrows(NoSuchAccountException.class, () -> customer.removeAccount(firstAccount));
-	}
-
 
 }

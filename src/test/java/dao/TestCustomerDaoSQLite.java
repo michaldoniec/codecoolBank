@@ -12,9 +12,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Created by michal on 07.06.17.
- */
+
 public class TestCustomerDaoSQLite {
 	private JDBCSQLite database;
 	private CustomerDao customerDao;

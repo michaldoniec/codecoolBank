@@ -11,15 +11,15 @@ public class Transaction {
     private String description;
     private String transactionStatusName;
     private String transactionStatusDescription;
-    private Account sourceAccount;
+    private AbstractAccount sourceAccount;
     private Card sourceCard;
-    private Account destinationAccount;
+    private AbstractAccount destinationAccount;
 
 
     public Transaction(Integer id, LocalDate dateOfTransaction, String transactionTypeName,
         String transactionTypeDescription, long value, String description,
-        String transactionStatusName, String transactionStatusDescription, Account sourceAccount,
-        Card sourceCard, Account destinationAccount) {
+        String transactionStatusName, String transactionStatusDescription, AbstractAccount sourceAccount,
+        Card sourceCard, AbstractAccount destinationAccount) {
         this.id = id;
         this.dateOfTransaction = dateOfTransaction;
         this.transactionTypeName = transactionTypeName;
@@ -36,8 +36,8 @@ public class Transaction {
 
     public Transaction(LocalDate dateOfTransaction, String transactionTypeName,
         String transactionTypeDescription, long value, String description,
-        String transactionStatusName, String transactionStatusDescription, Account sourceAccount,
-        Card sourceCard, Account destinationAccount) {
+        String transactionStatusName, String transactionStatusDescription, AbstractAccount sourceAccount,
+        Card sourceCard, AbstractAccount destinationAccount) {
         this.dateOfTransaction = dateOfTransaction;
         this.transactionTypeName = transactionTypeName;
         this.transactionTypeDescription = transactionTypeDescription;
@@ -80,7 +80,7 @@ public class Transaction {
         return transactionStatusDescription;
     }
 
-    public Account getSourceAccount() {
+    public AbstractAccount getSourceAccount() {
         return sourceAccount;
     }
 
@@ -88,7 +88,7 @@ public class Transaction {
         return sourceCard;
     }
 
-    public Account getDestinationAccount() {
+    public AbstractAccount getDestinationAccount() {
         return destinationAccount;
     }
 }
