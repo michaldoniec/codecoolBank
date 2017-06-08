@@ -34,6 +34,6 @@ INSERT INTO TransactionTypes (Name, Description) VALUES(
 'Other transaction', 'Not tax or social security transation');
 INSERT INTO Transactions (DateOfTransaction, TransactionTypeID, Value, Description, TransactionStatusID, SourceAccountID,
  SourceCardID, DestinationAccountID) VALUES(
-'2017-1-1', 1, 2000, 'Income tax for 2017', 1, 1, null, 2);
+'2017-01-01', 1, 2000, 'Income tax for 2017', 1, 1, 1, 2);
 INSERT INTO Cards (CardNumber, CardTypeID, Validity, BuyingLimit, CashWithdrawLimit, `Limit`, AccountID) VALUES(
 '12334', 1, '2018-01-01', 2000, 3000, 5000, 1);

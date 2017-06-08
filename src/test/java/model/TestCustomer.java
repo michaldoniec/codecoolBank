@@ -1,5 +1,6 @@
 package model;
 
+import model.exception.NoSuchAccountException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -77,8 +78,8 @@ public class TestCustomer {
 
 	@Test
 	public void testAddAccount() {
-		Account firstAccount = mock(SavingAccount.class);
-		Account secondAccount = mock(SavingAccount.class);
+		AbstractAccount firstAccount = mock(SavingAccount.class);
+		AbstractAccount secondAccount = mock(SavingAccount.class);
 		customer.addAccount(firstAccount);
 		customer.addAccount(secondAccount);
 		Integer numberOfAccounts = 2;
@@ -88,8 +89,8 @@ public class TestCustomer {
 
 	@Test
 	public void testRemoveAccount() throws NoSuchAccountException {
-		Account firstAccount = mock(SavingAccount.class);
-		Account secondAccount = mock(SavingAccount.class);
+		AbstractAccount firstAccount = mock(SavingAccount.class);
+		AbstractAccount secondAccount = mock(SavingAccount.class);
 		customer.addAccount(firstAccount);
 		customer.addAccount(secondAccount);
 		customer.removeAccount(firstAccount);
@@ -100,8 +101,8 @@ public class TestCustomer {
 
 	@Test
 	public void testRemoveNonExistingAccountThrowsException() {
-		Account firstAccount = mock(SavingAccount.class);
-		Account secondAccount = mock(SavingAccount.class);
+		AbstractAccount firstAccount = mock(SavingAccount.class);
+		AbstractAccount secondAccount = mock(SavingAccount.class);
 		assertThrows(NoSuchAccountException.class, () -> customer.removeAccount(firstAccount));
 	}
 
