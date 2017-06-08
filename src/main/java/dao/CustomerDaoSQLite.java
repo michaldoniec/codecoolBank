@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-
 public class CustomerDaoSQLite implements CustomerDao {
 	private JDBCSQLite database;
 	private Connection connection;

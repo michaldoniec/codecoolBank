@@ -1,19 +1,14 @@
 package controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 
-import dao.CustomerDao;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import model.AbstractAccount;
 import model.Card;
 import model.CreditAccount;
 import model.Customer;
 import model.Transaction;
-import model.exception.NoSuchAccountException;
 import model.SavingAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,8 +20,6 @@ public class TestTransactionController {
     private AbstractAccount sourceAccount;
     private AbstractAccount destinationAccount;
     private AbstractAccount testAccount;
-    private AccountController sourceAccountController;
-    private AccountController destinationAccountController;
     private Card sourceCard;
     private Transaction transaction;
     private Customer customer;
@@ -36,16 +29,14 @@ public class TestTransactionController {
     @BeforeEach
     public void createTransactionController() {
         dateOfTransaction = LocalDate.of(2017,6,6);
-        sourceCard = mock(Card.class);
+        sourceCard = new Card();
         destinationAccount = mock(CreditAccount.class);
         sourceAccount = new SavingAccount(customer, "123345556NBP", "type description",
-            "Disactive account", "status description", dateOfTransaction, 34000,
+            "Active account", "status description", dateOfTransaction, 34000,
             3000, 5);
         destinationAccount = new SavingAccount(customer, "123345556NBP1", "type description",
-            "Disactive account", "status description", dateOfTransaction, 34000,
+            "Active account", "status description", dateOfTransaction, 34000,
             3000, 5);
-        sourceAccountController = new AccountController(sourceAccount);
-        destinationAccountController = new AccountController(destinationAccount);
         transaction = new Transaction(dateOfTransaction, "TypeName",
             "TypeDescription", 123, "description","StatusName",
             "StatusDescription", sourceAccount, sourceCard, destinationAccount);
@@ -59,5 +50,23 @@ public class TestTransactionController {
         assertEquals(correctBalance, sourceAccount.getBalance());
     }
 
+    @Test
+    @DisplayName("Transfer negative value")
+    public void testIfMinusWithdrawAmountThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> transactionController.makeTransactionFromAccountToAccount(-1));
+    }
+
+    @Test
+    @DisplayName("Transfer more than you have")
+    public void testIfWithdrawMoreThanTransactionLimitThrowException() {
+        assertThrows(IllegalArgumentException.class, () -> transactionController.makeTransactionFromAccountToAccount(99999));
+    }
+
+    @Test
+    @DisplayName("Transfer from disabled account")
+    public void testIfWithdrawFromDisabledAccountThrowException() {
+        sourceAccount.setStatusName("Disable account");
+        assertThrows(IllegalArgumentException.class, () -> transactionController.makeTransactionFromAccountToAccount(1));
+    }
 
 }

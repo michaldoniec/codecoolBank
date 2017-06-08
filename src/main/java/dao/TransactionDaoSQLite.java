@@ -13,9 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by michal on 08.06.17.
- */
 public class TransactionDaoSQLite implements TransactionDao {
 	private JDBCSQLite database;
 	private Connection connection;

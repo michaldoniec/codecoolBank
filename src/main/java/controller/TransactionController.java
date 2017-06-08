@@ -1,36 +1,63 @@
 package controller;
-import model.Card;
-import model.SavingAccount;
 import model.Transaction;
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import model.AbstractAccount;
-import model.Customer;
 
 
 public class TransactionController {
     private Transaction transaction;
     private AccountController sourceAccountController;
     private AccountController destinationAccountController;
+    private AbstractAccount sourceAccount;
+    private AbstractAccount destinationAccount;
 
     public TransactionController(Transaction transaction) {
         this.transaction = transaction;
     }
 
-    public Transaction getTransaction() {
-        return transaction;
-    }
-
     public void makeTransactionFromAccountToAccount(long amount) {
-        AbstractAccount sourceAccount = sourceAccountController.getAccount();
-        AbstractAccount destinationAccount = destinationAccountController.getAccount();
-        transaction.setSourceAccount(sourceAccount);
-        transaction.setDestinationAccount(destinationAccount);
+        sourceAccount = transaction.getSourceAccount();
+        destinationAccount = transaction.getDestinationAccount();
+        long sourceBalance = sourceAccount.getBalance();
+        long destinationBalance = destinationAccount.getBalance();
 
-        sourceAccountController.withdraw(amount, sourceAccount);
-        destinationAccountController.deposit(amount, destinationAccount);
+        if (validateAccountsStatus() && validateAmount(amount) && validateFunds(amount)) {
+            long newSourceBalance = sourceBalance - amount;
+            sourceAccount.setBalance(newSourceBalance);
+            long newDestinationBalance = destinationBalance + amount;
+            destinationAccount.setBalance(newDestinationBalance);
+        } else {
+            throw new IllegalArgumentException("Transaction forbidden");
+        }
     }
+
+
+    public boolean validateAccountsStatus() {
+        String statusSourceAccount = sourceAccount.getStatusName();
+        String statusDestinationAccount = destinationAccount.getStatusName();
+
+        if (statusSourceAccount.equals("Active account") && statusDestinationAccount.equals("Active account")){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean validateFunds(long amount) {
+        long debit = sourceAccount.getDebitLine();
+        long balance = sourceAccount.getBalance();
+        long transactionLimit = balance + debit;
+
+        if (amount > transactionLimit) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateAmount(long amount) {
+        if (amount < 0) {
+            return false;
+        }
+        return true;
+    }
+
 }
 

@@ -9,9 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-/**
- * Created by michal on 08.06.17.
- */
 public class AccountDaoSQLite implements AccountDao {
 	private JDBCSQLite database;
 	private Connection connection;

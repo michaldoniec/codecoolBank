@@ -7,7 +7,6 @@ import model.exception.NoSuchTransactionInDatabaseException;
 import java.sql.SQLException;
 import java.util.List;
 
-
 public interface TransactionDao {
 
 	void addTransaction(Transaction transaction) throws SQLException;

@@ -1,8 +1,6 @@
 package model;
 
-import controller.AccountOperation;
 import java.time.LocalDate;
-
 
 public abstract class AbstractAccount  {
 	private Integer id;

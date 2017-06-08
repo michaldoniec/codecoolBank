@@ -79,7 +79,4 @@ public class Card {
 		return cardStatus;
 	}
 
-	public void setCardStatus(CardStatus cardStatus) {
-		this.cardStatus = cardStatus;
-	}
 }

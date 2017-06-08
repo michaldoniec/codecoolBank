@@ -30,21 +30,20 @@ public class TestAccountController {
 
     @Test
     public void testIfDepositIncreaseValue() {
-        accountController.deposit(1000, testAccount);
+        accountController.deposit(1000);
         long correctBalance = 35000;
         assertEquals(correctBalance, accountController.getAccount().getBalance());
     }
 
     @Test
     public void testIfMinusDepositAmountThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> accountController.deposit(-1000,
-            testAccount));
+        assertThrows(IllegalArgumentException.class, () -> accountController.deposit(-1000));
     }
 
 
     @Test
     public void testIfWithdrawDecreaseValue() {
-        accountController.withdraw(4000, testAccount);
+        accountController.withdraw(4000);
         long correctBalance = 30000;
         assertEquals(correctBalance, accountController.getAccount().getBalance());
     }
@@ -52,22 +51,19 @@ public class TestAccountController {
     @Test
     @DisplayName("Withdraw negative value")
     public void testIfMinusWithdrawAmountThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> accountController.withdraw(-1000,
-            testAccount));
+        assertThrows(IllegalArgumentException.class, () -> accountController.withdraw(-1000));
     }
 
     @Test
     @DisplayName("Withdraw more than you have")
     public void testIfWithdrawMoreThanTransactionLimitThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> accountController.withdraw(100000,
-            testAccount));
+        assertThrows(IllegalArgumentException.class, () -> accountController.withdraw(100000));
     }
 
     @Test
     @DisplayName("Withdraw from disabled account")
     public void testIfWithdrawFromDisabledAccountThrowException() {
         accountController.blockAccount();
-        assertThrows(IllegalArgumentException.class, () -> accountController.withdraw(200,
-            testAccount));
+        assertThrows(IllegalArgumentException.class, () -> accountController.withdraw(200));
     }
 }
