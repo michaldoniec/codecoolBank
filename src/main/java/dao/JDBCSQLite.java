@@ -6,9 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
 
-/**
- * Created by michal on 07.06.17.
- */
+
 public class JDBCSQLite {
 	private Connection connection;
 	private ResultSet resultSet;
@@ -26,8 +24,7 @@ public class JDBCSQLite {
 	}
 
 	ResultSet executeSelectQuery(PreparedStatement query) throws SQLException {
-		ResultSet resultSet = query.executeQuery();
-		System.out.println("ResultSet created");
+		resultSet = query.executeQuery();
 		return  resultSet;
 	}
 
