@@ -1,9 +1,10 @@
 package model;
 
+import controller.AccountOperation;
 import java.time.LocalDate;
 
 
-public abstract class AbstractAccount implements Account {
+public abstract class AbstractAccount  {
 	private Integer id;
 	private Customer customer;
 	private String number;
@@ -57,6 +58,10 @@ public abstract class AbstractAccount implements Account {
 		return balance;
 	}
 
+	public void setBalance(long balance) {
+		this.balance = balance;
+	}
+
 	public Integer getAccountId() {
 		return id;
 	}
@@ -65,20 +70,7 @@ public abstract class AbstractAccount implements Account {
 		this.statusName = statusName;
 	}
 
-	public void withdraw(long amount) throws IllegalArgumentException {
-		if(amount < 0){
-			throw new IllegalArgumentException("Withdraw amount must be above 0");
-		}
-		balance -= amount;
-	}
-
-	public void deposit(long amount) throws IllegalArgumentException {
-		if(amount < 0){
-			throw new IllegalArgumentException("Deposit must be above 0");
-		}
-		balance += amount;
-	}
-
+	
 	public String getNumber() {
 		return number;
 	}
