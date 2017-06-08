@@ -7,12 +7,13 @@ import java.io.FileNotFoundException;
 import java.sql.*;
 
 
-public class JDBCSQLite {
+public class JDBCSQLite implements JDBCDao {
 	private Connection connection;
 	private ResultSet resultSet;
 	private String dbPath;
+	private static JDBCSQLite database;
 
-	public JDBCSQLite(String dbPath) throws SQLException, ClassNotFoundException {
+	private JDBCSQLite(String dbPath) throws SQLException, ClassNotFoundException {
 		this.dbPath = dbPath;
 		Class.forName("org.sqlite.JDBC");
 		this.connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
@@ -23,12 +24,20 @@ public class JDBCSQLite {
 		return connection;
 	}
 
-	ResultSet executeSelectQuery(PreparedStatement query) throws SQLException {
+	public static void createDatabase(String dbPath) throws SQLException, ClassNotFoundException {
+		database = new JDBCSQLite(dbPath);
+	}
+
+	public static JDBCSQLite getDatabase(){
+		return database;
+	}
+
+	public ResultSet executeSelectQuery(PreparedStatement query) throws SQLException {
 		resultSet = query.executeQuery();
 		return  resultSet;
 	}
 
-	void executeDBModifyingQuery(PreparedStatement query) throws SQLException {
+	public void executeDBModifyingQuery(PreparedStatement query) throws SQLException {
 		query.executeUpdate();
 		this.connection.commit();
 		query.close();
