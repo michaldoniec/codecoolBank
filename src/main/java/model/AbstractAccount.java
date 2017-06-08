@@ -72,7 +72,7 @@ public abstract class AbstractAccount  {
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
-	
+
 	public String getNumber() {
 		return number;
 	}

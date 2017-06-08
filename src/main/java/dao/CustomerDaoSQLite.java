@@ -1,6 +1,7 @@
 package dao;
 
 import model.Customer;
+import model.exception.NoSuchCustomerInDatabaseException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,69 +10,86 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 
-/**
- * Created by michal on 07.06.17.
- */
 public class CustomerDaoSQLite implements CustomerDao {
 	private JDBCSQLite database;
 	private Connection connection;
 	private ResultSet resultSet;
 
-	CustomerDaoSQLite(JDBCSQLite database){
+	public CustomerDaoSQLite(JDBCSQLite database){
 		this.database = database;
 		this.connection = database.getConnection();
 	}
 
 	public void addCustomer(Customer customer) throws SQLException {
-		Integer isActive;
-		if(customer.getIsActive()){
-			isActive = 1;
-		} else {
-			isActive = 0;
-		}
+		Integer isActive = checkIfActive(customer);
 		String addCustomerQuery = String.format("INSERT INTO Customers " +
 		 "(FirstName, LastName, Login, Password, CreateDate, IsActive, LastLogin) VALUES('%s','%s','%s','%s'," +
 		 "'%s', %d, '%s')", customer.getFirstName(), customer.getLastName(), customer.getLogin(),
 		 customer.getPassword(), customer.getCreateDate().toString(), isActive,
 		 customer.getLastLogin().toString());
-		PreparedStatement addQuery = connection.prepareStatement(addCustomerQuery);
-		database.executeDBModifyingQuery(addQuery);
+		modifyDatabase(addCustomerQuery);
 	}
 
 	public void updateCustomer(Customer customer) throws SQLException {
-		Integer isActive;
-		if(customer.getIsActive()){
-			isActive = 1;
-		} else {
-			isActive = 0;
-		}
+		Integer isActive = checkIfActive(customer);
 		String updateCustomerQuery = String.format("UPDATE Customers " +
-		  "SET FirstName = '%s', LastName = '%s', Login = '%s', Password = '%s', CreateDate = '%s'," +
-		  "IsActive = %d, LastLogin = '%s'", customer.getFirstName(), customer.getLastName(), customer.getLogin(),
+		  "SET FirstName = '%s', LastName = '%s', Password = '%s', CreateDate = '%s'," +
+		  "IsActive = %d, LastLogin = '%s' WHERE CustomerID = %d", customer.getFirstName(), customer.getLastName(),
 		 customer.getPassword(), customer.getCreateDate().toString(), isActive,
-		 customer.getLastLogin().toString());
-		PreparedStatement updateQuery = connection.prepareStatement(updateCustomerQuery);
-		database.executeDBModifyingQuery(updateQuery);
+		 customer.getLastLogin().toString(), customer.getId());
+		modifyDatabase(updateCustomerQuery);
 	}
 
-	public Customer find(Integer customerId) throws SQLException {
-		Customer customer = null;
+	public Customer findCustomerById(Integer customerId) throws NoSuchCustomerInDatabaseException {
+		try {
+			String findCustomerQuery = String.format("SELECT * FROM Customers WHERE CustomerID = %d", customerId);
+			PreparedStatement selectQuery = connection.prepareStatement(findCustomerQuery);
+			resultSet = database.executeSelectQuery(selectQuery);
+			return convertDataToCustomerModel(resultSet);
+		} catch (SQLException e){
+			throw new NoSuchCustomerInDatabaseException("There is no customer with such id");
+		}
+	}
+
+	public Customer findCustomerByLogin(String login) throws NoSuchCustomerInDatabaseException {
+		try {
+			Boolean isActive;
+			String findCustomerQuery = String.format("SELECT * FROM Customers WHERE Login = '%s'", login);
+			PreparedStatement selectQuery = connection.prepareStatement(findCustomerQuery);
+			resultSet = database.executeSelectQuery(selectQuery);
+			return convertDataToCustomerModel(resultSet);
+		} catch (SQLException e){
+			throw new NoSuchCustomerInDatabaseException("There is no customer with such login");
+		}
+	}
+
+	private Integer checkIfActive(Customer customer) {
+		if(customer.getIsActive()){
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
+	private Customer convertDataToCustomerModel(ResultSet resultSet) throws SQLException {
 		Boolean isActive;
-		String findCustomerQuery = String.format("SELECT * FROM Customers WHERE CustomerID = %d", customerId);
-		PreparedStatement selectQuery = connection.prepareStatement(findCustomerQuery);
-		resultSet = database.executeSelectQuery(selectQuery);
 		LocalDate createDate = LocalDate.parse(resultSet.getString("CreateDate"));
 		LocalDate lastLogin = LocalDate.parse(resultSet.getString("LastLogin"));
-		if(resultSet.getInt("IsActive") == 1){
+
+		if(resultSet.getInt("IsActive") == 1) {
 			isActive = true;
 		} else {
 			isActive = false;
 		}
+
 		return new Customer(resultSet.getInt("CustomerID"), resultSet.getString("FirstName"),
 		 resultSet.getString("LastName"), resultSet.getString("Login"),
 		 resultSet.getString("Password"), createDate, isActive,
 		 lastLogin);
 	}
 
-
+	private void modifyDatabase(String query) throws SQLException {
+		PreparedStatement modifyDatabaseQuery = connection.prepareStatement(query);
+		database.executeDBModifyingQuery(modifyDatabaseQuery);
+	}
 }

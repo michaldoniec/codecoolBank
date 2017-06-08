@@ -1,6 +1,7 @@
 package dao;
 
 import model.Customer;
+import model.exception.NoSuchCustomerInDatabaseException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class TestCustomerDaoSQLite {
@@ -30,8 +32,8 @@ public class TestCustomerDaoSQLite {
 	}
 
 	@Test
-	public void testIfFindReturnCorrectCustomer() throws SQLException {
-		Customer customer = customerDao.find(1);
+	public void testIfFindReturnCorrectCustomer() throws SQLException, NoSuchCustomerInDatabaseException {
+		Customer customer = customerDao.findCustomerById(1);
 		Integer correctCustomerId = 1;
 		LocalDate createDate = LocalDate.of(2017,1,1);
 		LocalDate lastLogin = LocalDate.of(2017,3,3);
@@ -45,13 +47,18 @@ public class TestCustomerDaoSQLite {
 	}
 
 	@Test
-	public void testIfAddNewCustomer() throws SQLException {
+	public void testIfExceptionIsThrowWhenIncorrectIDisGiven() {
+		assertThrows(NoSuchCustomerInDatabaseException.class, () -> customerDao.findCustomerById(10));
+	}
+
+	@Test
+	public void testIfAddNewCustomer() throws SQLException, NoSuchCustomerInDatabaseException {
 		LocalDate createDate = LocalDate.of(2017,7,1);
 		LocalDate lastLogin = LocalDate.of(2017, 8,2);
 		Customer newCustomer = new Customer("Tom", "Abc", "ab",
 		 "21232f297a57a5a743894a0e4a801fc3",createDate, true, lastLogin);
 		customerDao.addCustomer(newCustomer);
-		Customer customer = customerDao.find(3);
+		Customer customer = customerDao.findCustomerById(3);
 		Integer correctCustomerId = 3;
 		assertAll("New Customer",
 		 () -> assertEquals(correctCustomerId, customer.getId()),
@@ -63,12 +70,12 @@ public class TestCustomerDaoSQLite {
 	}
 
 	@Test
-	public void testIfUpdateCustomer() throws SQLException {
-		Customer customer = customerDao.find(2);
+	public void testIfUpdateCustomer() throws SQLException, NoSuchCustomerInDatabaseException {
+		Customer customer = customerDao.findCustomerById(2);
 		LocalDate newLastLogin = LocalDate.of(2019,1,1);
 		customer.setLastLogin(newLastLogin);
 		customerDao.updateCustomer(customer);
-		Customer updatedCustomer = customerDao.find(2);
+		Customer updatedCustomer = customerDao.findCustomerById(2);
 		assertEquals(newLastLogin, updatedCustomer.getLastLogin());
 	};
 }

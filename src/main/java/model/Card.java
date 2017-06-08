@@ -39,6 +39,10 @@ public class Card {
 		this.cardStatus = cardStatus;
 	}
 
+	public Card(){
+
+	}
+
 	public Integer getId() {
 		return id;
 	}
