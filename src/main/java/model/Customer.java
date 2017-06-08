@@ -1,5 +1,7 @@
 package model;
 
+import model.exception.NoSuchAccountException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,7 @@ public class Customer {
 	private LocalDate createDate;
 	private Boolean isActive;
 	private LocalDate lastLogin;
-	private List<Account> accounts = new ArrayList<>();
+	private List<AbstractAccount> accounts = new ArrayList<>();
 
 	public Customer(Integer id, String firstName, String lastName, String login, String password, LocalDate createDate, Boolean isActive, LocalDate lastLogin) {
 		this.id = id;
@@ -84,30 +86,31 @@ public class Customer {
 		}
 	}
 
-	public void addAccount(Account account) {
+	public void addAccount(AbstractAccount account) {
 		accounts.add(account);
 	}
 
-	public void removeAccount(Account account) throws NoSuchAccountException {
+	public void removeAccount(AbstractAccount account) throws NoSuchAccountException {
 		Integer accountToRemoveId = account.getAccountId();
-		Account accountToRemove = getAccountById(accountToRemoveId);
+		AbstractAccount accountToRemove = getAccountById(accountToRemoveId);
 		if(accountToRemove == null){
 			throw new NoSuchAccountException("There is no such account");
 		}
 		accounts.remove(getAccountById(accountToRemoveId));
 	}
 
-	public Account getAccountById(Integer accountId) {
-		Account foundAccount = null;
-		for(Account account : accounts)
-			if (account.getAccountId() == accountId) {
+	public AbstractAccount getAccountById(Integer accountId) {
+		AbstractAccount foundAccount = null;
+		for(AbstractAccount account : accounts) {
+			if(account.getAccountId() == accountId ) {
 				foundAccount = account;
 				return foundAccount;
 			}
+		}
 		return foundAccount;
 	}
 
-	public List<Account> getAccounts() {
+	public List<AbstractAccount> getAccounts() {
 		return accounts;
 	}
 

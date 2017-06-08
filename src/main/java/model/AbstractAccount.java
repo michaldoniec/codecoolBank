@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 
 
-public abstract class AbstractAccount implements Account {
+public abstract class AbstractAccount {
 	private Integer id;
 	private Customer customer;
 	private String number;
