@@ -68,29 +68,6 @@ public class TestCreditAccount {
         );
     }
 
-    @Test
-    public void testIfDespositIncreaseValue() {
-        creditAccount.deposit(1000);
-        long correctBalance = 35000;
-        assertEquals(correctBalance, creditAccount.getBalance());
-    }
 
-    @Test
-    public void testIfMinusDepositAmountThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> creditAccount.deposit(-1000));
-    }
-
-
-    @Test
-    public void testIfWithdrawDecreaseValue() {
-        creditAccount.withdraw(4000);
-        long correctBalance = 30000;
-        assertEquals(correctBalance, creditAccount.getBalance());
-    }
-
-    @Test
-    public void testIfMinusWithdrawAmountThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> creditAccount.withdraw(-1000));
-    }
 }
 
