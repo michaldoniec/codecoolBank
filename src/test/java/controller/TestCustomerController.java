@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import model.Customer;
-import model.NoSuchAccountException;
+import model.exception.NoSuchAccountException;
 import model.SavingAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

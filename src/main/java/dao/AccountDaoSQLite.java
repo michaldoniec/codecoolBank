@@ -10,10 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by michal on 08.06.17.
- */
-public class AccountDaoSQLite extends CommonDBOperationsDaoSQLite implements AccountDao {
+
+public class AccountDaoSQLite implements AccountDao {
+
 	private JDBCSQLite database;
 	private Connection connection;
 	private ResultSet resultSet;
