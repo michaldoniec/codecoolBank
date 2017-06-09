@@ -13,16 +13,6 @@ public class JDBCSQLite implements JDBCDao {
 	private String dbPath;
 	private static JDBCSQLite database;
 
-	private JDBCSQLite(String dbPath) throws SQLException, ClassNotFoundException {
-		this.dbPath = dbPath;
-		Class.forName("org.sqlite.JDBC");
-		this.connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-		this.connection.setAutoCommit(false);
-	}
-
-	public Connection getConnection() {
-		return connection;
-	}
 
 	public static void createDatabase(String dbPath) throws SQLException, ClassNotFoundException {
 		database = new JDBCSQLite(dbPath);
@@ -30,6 +20,10 @@ public class JDBCSQLite implements JDBCDao {
 
 	public static JDBCSQLite getDatabase(){
 		return database;
+	}
+
+	public Connection getConnection() {
+		return connection;
 	}
 
 	public ResultSet executeSelectQuery(PreparedStatement query) throws SQLException {
@@ -86,6 +80,13 @@ public class JDBCSQLite implements JDBCDao {
 		}
 
 		System.out.println("Tables filled with mock data");
+	}
+
+	private JDBCSQLite(String dbPath) throws SQLException, ClassNotFoundException {
+		this.dbPath = dbPath;
+		Class.forName("org.sqlite.JDBC");
+		this.connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+		this.connection.setAutoCommit(false);
 	}
 
 	private void clearResultSet() throws  SQLException {

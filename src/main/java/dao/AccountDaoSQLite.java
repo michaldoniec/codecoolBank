@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by michal on 08.06.17.
@@ -48,6 +50,26 @@ public class AccountDaoSQLite extends CommonDBOperationsDaoSQLite implements Acc
 			PreparedStatement selectQuery = connection.prepareStatement(findAccountQuery);
 			ResultSet resultSet = database.executeSelectQuery(selectQuery);
 			return convertDataToAccountModel(resultSet);
+		} catch (SQLException e){
+			throw new NoSuchAccountException("There is no account with such id");
+		}
+	}
+
+	public List<AbstractAccount> findAccountsByCustomerId(Integer customerId) throws NoSuchAccountException {
+		try {
+			List<AbstractAccount> accounts = new ArrayList<>();
+			String findAccountQuery = String.format("SELECT * FROM Accounts INNER JOIN Customers ON " +
+			  "Accounts.CustomerID = Customers.CustomerID INNER JOIN AccountStatuses ON " +
+			  "Accounts.AccountStatusID = AccountStatuses.AccountStatusID INNER JOIN \n" +
+			  "AccountTypes ON Accounts.AccountTypeID = AccountTypes.AccountTypeID WHERE Accounts.CustomerID == %d",
+			 customerId);
+			PreparedStatement selectQuery = connection.prepareStatement(findAccountQuery);
+			ResultSet resultSet = database.executeSelectQuery(selectQuery);
+			while(resultSet.next()){
+				AbstractAccount account = convertDataToAccountModel(resultSet);
+				accounts.add(account);
+			}
+			return accounts;
 		} catch (SQLException e){
 			throw new NoSuchAccountException("There is no account with such id");
 		}

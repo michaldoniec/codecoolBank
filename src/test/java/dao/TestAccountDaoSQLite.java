@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,7 +36,7 @@ public class TestAccountDaoSQLite {
 	}
 
 	@Test
-	public void testFindAccountByCorrectId() throws NoSuchAccountException {
+	public void testIfFindAccountByCorrectAccountId() throws NoSuchAccountException {
 		AbstractAccount account = accountDao.findAccountById(1);
 		Integer correctAccountId = 1;
 		String correctAccountNumber = "12233444ds";
@@ -48,8 +49,17 @@ public class TestAccountDaoSQLite {
 	}
 
 	@Test
-	public void testIfThrowExceptionIfFindAccountByIncorrectId() throws NoSuchAccountException {
+	public void testIfThrowExceptionIfFindAccountByIncorrectAccountId() throws NoSuchAccountException {
 		assertThrows(NoSuchAccountException.class, () ->accountDao.findAccountById(10));
+	}
+
+	@Test
+	public void testIfFindAccountByCorrectCustomerId() throws NoSuchAccountException {
+		Integer correctAccountId = 1;
+		List<AbstractAccount> accounts = accountDao.findAccountsByCustomerId(correctAccountId);
+		Integer correctNumberOfAccounts = 1;
+		Integer accountsListSize = accounts.size();
+		assertEquals(correctNumberOfAccounts, accountsListSize);
 	}
 
 	@Test

@@ -70,6 +70,10 @@ public class Customer {
 		isActive = active;
 	}
 
+	public void setAccounts(List<AbstractAccount> accounts) {
+		this.accounts = accounts;
+	}
+
 	public String getLogin() {
 		return login;
 	}

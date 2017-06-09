@@ -33,9 +33,25 @@ public class TestCustomerDaoSQLite {
 	}
 
 	@Test
-	public void testIfFindReturnCorrectCustomer() throws SQLException, NoSuchCustomerInDatabaseException {
-		Customer customer = customerDao.findCustomerById(1);
+	public void testIfFindByCustomerIdReturnCorrectCustomer() throws SQLException, NoSuchCustomerInDatabaseException {
 		Integer correctCustomerId = 1;
+		Customer customer = customerDao.findCustomerById(correctCustomerId);
+		LocalDate createDate = LocalDate.of(2017,1,1);
+		LocalDate lastLogin = LocalDate.of(2017,3,3);
+		assertAll("Customer",
+		 () -> assertEquals(correctCustomerId, customer.getId()),
+		 () -> assertEquals("Mike", customer.getFirstName()),
+		 () -> assertEquals("Smith", customer.getLastName()),
+		 () -> assertEquals(createDate, customer.getCreateDate()),
+		 () -> assertEquals(lastLogin, customer.getLastLogin())
+		);
+	}
+
+	@Test
+	public void testIfFindByLoginReturnCorrectCustomer() throws SQLException, NoSuchCustomerInDatabaseException {
+		String correctCustomerLogin = "Abc";
+		Integer correctCustomerId = 1;
+		Customer customer = customerDao.findCustomerByLogin(correctCustomerLogin);
 		LocalDate createDate = LocalDate.of(2017,1,1);
 		LocalDate lastLogin = LocalDate.of(2017,3,3);
 		assertAll("Customer",

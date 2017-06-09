@@ -1,10 +1,9 @@
 package controller;
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import model.AbstractAccount;
 import model.Customer;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class CustomerController {
     private Customer customer;
@@ -14,7 +13,7 @@ public class CustomerController {
     }
 
 
-    public Customer addCustomer(List<String> newCustomerData) {
+    public static Customer addCustomer(List<String> newCustomerData) {
         String firstName = newCustomerData.get(0);
         String secondName = newCustomerData.get(1);
         String login = newCustomerData.get(2);
