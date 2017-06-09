@@ -12,22 +12,21 @@ import static org.mockito.Mockito.mock;
 
 public class TestAccountController {
     private AccountController accountController;
-    private SavingAccount savingAccount;
+    private SavingAccount testAccount;
     private Customer customer;
     private LocalDate openDate;
 
     @BeforeEach
     public void createAccountController() {
-        savingAccount = new SavingAccount(customer, "123345556NBP", "type description",
+        testAccount = new SavingAccount(customer, "123345556NBP", "type description",
             "Disactive account", "status description", openDate, 34000,
             3000, 5);
-        accountController = new AccountController(savingAccount);
+        accountController = new AccountController(testAccount);
         accountController.unblockAccount();
         openDate = LocalDate.of(2017,6,6);
         customer =  mock(Customer.class);
 
     }
-
 
     @Test
     public void testIfDepositIncreaseValue() {

@@ -84,6 +84,7 @@ public class Transaction {
         return sourceAccount;
     }
 
+
     public Card getSourceCard() {
         return sourceCard;
     }
@@ -91,4 +92,5 @@ public class Transaction {
     public AbstractAccount getDestinationAccount() {
         return destinationAccount;
     }
+
 }

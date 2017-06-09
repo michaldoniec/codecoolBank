@@ -1,9 +1,8 @@
 package controller;
-import model.AbstractAccount;
-import model.Customer;
-
 import java.time.LocalDate;
 import java.util.List;
+import model.AbstractAccount;
+import model.Customer;
 
 public class CustomerController {
     private Customer customer;
@@ -76,5 +75,4 @@ public class CustomerController {
             return false;
         }
     }
-
 }

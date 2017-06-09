@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
+
 public class CustomerDaoSQLite extends CommonDBOperationsDaoSQLite implements CustomerDao {
+
 	private JDBCSQLite database;
 	private Connection connection;
 	private ResultSet resultSet;

@@ -15,7 +15,7 @@ public class TestTransaction {
     private LocalDate dateOfTransaction;
 
     @BeforeEach
-    public void createTrasaction() {
+    public void createTransaction() {
         dateOfTransaction = LocalDate.of(2017,6,6);
         sourceAccount =  mock(SavingAccount.class);
         destinationAccount = mock(CreditAccount.class);
