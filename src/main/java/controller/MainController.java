@@ -26,20 +26,13 @@ public class MainController {
 	CustomerDaoSQLite customerDaoSQLite;
 	Customer customer;
 
-	public MainController(String dbPath) {
-		this.dbPath = dbPath;
-		try {
-			JDBCSQLite.createDatabase(dbPath);
-			database = JDBCSQLite.getDatabase();
+	public MainController(JDBCSQLite database) {
+			database = database;
 			customerDaoSQLite = new CustomerDaoSQLite(database);
 			accountDaoSQLite = new AccountDaoSQLite(database);
-		} catch (SQLException | ClassNotFoundException e) {
-			System.out.println("Connection to database failed");
-			System.out.println(e);
-		}
 	}
 
-	public Customer getCustomerByLogin (String customerLogin, String customerPassword) throws  NoSuchAccountException{
+	public Customer getCustomerByLogin (String customerLogin, String customerPassword) {
 		try {
 
 			customer = customerDaoSQLite.findCustomerByLogin(customerLogin);
@@ -69,4 +62,14 @@ public class MainController {
 			System.out.println(accountData);
 		}
 	}
+
+	public void createCustomer(List<String> customerData) {
+		try {
+			Customer newCustomer = CustomerController.addCustomer(customerData);
+			customerDaoSQLite.addCustomer(newCustomer);
+		} catch (SQLException e){
+			System.out.println(e);
+		}
+	}
+
 }

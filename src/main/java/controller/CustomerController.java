@@ -1,8 +1,9 @@
 package controller;
-import java.time.LocalDate;
-import java.util.List;
 import model.AbstractAccount;
 import model.Customer;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class CustomerController {
     private Customer customer;
