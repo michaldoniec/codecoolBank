@@ -48,7 +48,6 @@ public class TransactionDaoSQLite extends CommonDBOperationsDaoSQLite implements
 		  "TransactionStatuses ON Transactions.TransactionStatusID = TransactionStatuses.TransactionStatusID " +
 		  "WHERE Transactions.SourceAccountID = %d",
 		 customerAccountId);
-		System.out.println(findTransactions);
 		return convertDataToTransactionModelList(findTransactions, customerAccountId);
 	}
 
@@ -105,13 +104,9 @@ public class TransactionDaoSQLite extends CommonDBOperationsDaoSQLite implements
 		return transactions;
 	}
 
-
-
 	private Integer findTransactionTypeId(String transactionTypeName) throws SQLException {
 		String findTransactionTypeId = String.format("SELECT TransactionTypeID FROM TransactionTypes WHERE Name = '%s'",
 		 transactionTypeName);
-
-		System.out.println(findTransactionTypeId);
 		PreparedStatement findTransactionTypeIdQuery = connection.prepareStatement(findTransactionTypeId);
 		ResultSet resultSet = database.executeSelectQuery(findTransactionTypeIdQuery);
 		return resultSet.getInt("TransactionTypeID");
