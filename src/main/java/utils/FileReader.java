@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-/**
- * Created by michal on 07.06.17.
- */
 public class FileReader {
 	private File file;
 

@@ -10,5 +10,4 @@ public class CardStatus {
 		this.name = name;
 		this.description = description;
 	}
-
 }

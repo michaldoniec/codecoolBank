@@ -15,9 +15,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Created by michal on 08.06.17.
- */
 public class TestTransactionDaoSQLite {
 	private static JDBCSQLite database;
 	private static TransactionDao transactionDao;
