@@ -12,7 +12,6 @@ public class CustomerController {
         this.customer = customer;
     }
 
-
     public static Customer addCustomer(List<String> newCustomerData) {
         String firstName = newCustomerData.get(0);
         String secondName = newCustomerData.get(1);
@@ -25,7 +24,6 @@ public class CustomerController {
         Customer newCustomer = new Customer(firstName, secondName, login, password, localDate, isActive, lastLogin);
         return newCustomer;
     }
-
 
     public Boolean validateCustomer(String login, String password){
         if(validateLogin(login) && validatePassword(password)){

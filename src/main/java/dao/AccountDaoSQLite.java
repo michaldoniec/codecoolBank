@@ -31,11 +31,9 @@ public class AccountDaoSQLite extends CommonDBOperationsDaoSQLite implements Acc
 		String balance = Long.toString(account.getBalance());
 		String debitLine = Long.toString(account.getDebitLine());
 		Integer accountStatusId = findAccountStatusId(account.getStatusName());
-		System.out.println(accountStatusId);
 		String addAccountQuery = String.format("INSERT INTO Accounts (CustomerID, Number, AccountTypeID, AccountStatusID," +
 		  "OpenDate, Balance, DebitLine, Interest) VALUES(%d, '%s', %d, %d, '%s', '%s', '%s', %d)", customerId,
 		 account.getNumber(), accountTypeId, accountStatusId, openDate, balance, debitLine, account.getInterest());
-		System.out.println(addAccountQuery);
 		modifyDatabase(addAccountQuery);
 	}
 
@@ -86,7 +84,6 @@ public class AccountDaoSQLite extends CommonDBOperationsDaoSQLite implements Acc
 		  "DebitLine = '%s', Interest = %d WHERE AccountID = %d", customerId,
 		 account.getNumber(), accountTypeId, accountStatusId, openDate, balance, debitLine, account.getInterest(),
 		 account.getAccountId());
-		System.out.println(updateAccountQuery);
 		modifyDatabase(updateAccountQuery);
 	}
 
