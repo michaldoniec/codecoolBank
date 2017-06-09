@@ -34,12 +34,9 @@ public class MainController {
 
 	public Customer getCustomerByLogin (String customerLogin, String customerPassword) {
 		try {
-
 			customer = customerDaoSQLite.findCustomerByLogin(customerLogin);
 			customerController = new CustomerController(customer);
-
 			if(customerController.validateCustomer(customerLogin, customerPassword)) {
-
 				List<AbstractAccount> accounts = accountDaoSQLite.findAccountsByCustomerId(customer.getId());
 				customer.setAccounts(accounts);
 				return customer;
@@ -50,7 +47,6 @@ public class MainController {
 			System.out.println("Incorrect login or password");
 			System.out.println(e);
 		}
-
 		return customer;
 	}
 
