@@ -1,9 +1,9 @@
 package controller;
 
-import dao.CustomerDao;
-import dao.CustomerDaoSQLite;
-import dao.JDBCSQLite;
+import dao.*;
+import model.AbstractAccount;
 import model.Customer;
+import model.exception.NoSuchAccountException;
 import model.exception.NoSuchCustomerInDatabaseException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +22,7 @@ public class TestMainController {
 	MainController mainController;
 	JDBCSQLite database;
 	CustomerDao customerDao;
+	AccountDao accountDao;
 
 		@BeforeEach
 	public void setUp() throws SQLException, ClassNotFoundException, FileNotFoundException {
@@ -29,6 +30,7 @@ public class TestMainController {
 		database = JDBCSQLite.getDatabase();
 		mainController = new MainController(database);
 		customerDao = new CustomerDaoSQLite(database);
+		accountDao = new AccountDaoSQLite(database);
 		database.resetDatabase();
 	}
 
@@ -61,5 +63,15 @@ public class TestMainController {
 		);
 	}
 
-
+	@Test
+	public void testIfAddNewAccount() throws NoSuchAccountException {
+		List<String> data = new ArrayList<>(
+			 Arrays.asList("12348gh", "Saving account description", "2017-01-01", "2000", "6")
+		);
+		mainController.getCustomerByLogin("Abc", "Def");
+		mainController.addAccount(data);
+		Integer correctNewAccountId = 3;
+		AbstractAccount newAccount = accountDao.findAccountById(3);
+		assertEquals(correctNewAccountId, newAccount.getAccountId());
+	}
 }
