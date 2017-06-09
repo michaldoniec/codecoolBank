@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AccountDaoSQLite implements AccountDao {
+public class AccountDaoSQLite extends CommonDBOperationsDaoSQLite implements AccountDao {
 
 	private JDBCSQLite database;
 	private Connection connection;
