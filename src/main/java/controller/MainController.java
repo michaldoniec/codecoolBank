@@ -69,6 +69,4 @@ public class MainController {
 			System.out.println(accountData);
 		}
 	}
-
-	public void addAccoun
 }
