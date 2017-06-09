@@ -15,9 +15,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Created by michal on 08.06.17.
- */
 public class TestAccountDaoSQLite {
 	private JDBCSQLite database;
 	private AccountDao accountDao;

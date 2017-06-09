@@ -6,9 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by michal on 09.06.17.
- */
 public interface JDBCDao {
 
 	Connection getConnection();

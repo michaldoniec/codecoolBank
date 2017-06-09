@@ -12,9 +12,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Created by michal on 09.06.17.
- */
 public class MainController {
 	String dbPath;
 	JDBCSQLite database;

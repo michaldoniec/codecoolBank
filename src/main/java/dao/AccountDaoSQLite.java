@@ -50,7 +50,7 @@ public class AccountDaoSQLite extends CommonDBOperationsDaoSQLite implements Acc
 			ResultSet resultSet = database.executeSelectQuery(selectQuery);
 			return convertDataToAccountModel(resultSet);
 		} catch (SQLException e){
-			throw new NoSuchAccountException("There is no account with such id");
+			throw new NoSuchAccountException("There isn't account with such id");
 		}
 	}
 

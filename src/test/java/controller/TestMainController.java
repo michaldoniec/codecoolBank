@@ -18,9 +18,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * Created by michal on 09.06.17.
- */
 public class TestMainController {
 	MainController mainController;
 	JDBCSQLite database;

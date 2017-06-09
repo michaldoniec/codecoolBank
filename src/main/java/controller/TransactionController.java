@@ -2,7 +2,6 @@ package controller;
 import model.Transaction;
 import model.AbstractAccount;
 
-
 public class TransactionController {
     private Transaction transaction;
     private AccountController sourceAccountController;
